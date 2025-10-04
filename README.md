@@ -18,6 +18,12 @@
 
 Perfect for quantitative traders, portfolio managers, and anyone who needs a clean, fast, and intuitive interface for monitoring financial markets.
 
+### 📸 Screenshot
+
+![Trading Dashboard](docs/screenshot.png)
+
+A modern, dark-themed dashboard with real-time candlestick charts, portfolio tracking, and market statistics.
+
 ### ✨ Key Features
 
 #### 📈 Real-Time Data
