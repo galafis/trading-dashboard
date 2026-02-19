@@ -119,6 +119,23 @@ trading-dashboard/
 - **Framer Motion**: Animation library
 - **shadcn/ui**: High-quality UI components
 
+### 🗂️ Arquitetura de Componentes
+
+```mermaid
+flowchart TD
+    A([Market Data API\nWebSocket · REST · Simulado]) --> B[Estado Global da Aplicação\nReact Hooks · useEffect · useState]
+    B --> C{Componentes React}
+    C --> D[Price Ticker\nAtualizações em Tempo Real]
+    C --> E[Charts & Visualizações\nRecharts · Area · Bar · Line]
+    C --> F[Portfolio Table\nPosições · P&L · Retornos]
+    C --> G[Statistics Cards\nVariação 24h · Volume · Métricas]
+    D --> H[Atualizações em Tempo Real\nFramer Motion · Animações Fluidas]
+    E --> H
+    F --> H
+    G --> H
+    H --> I([Interface do Trader\nDark Theme · Responsivo · Tailwind CSS])
+```
+
 ### 📊 Features Showcase
 
 #### Dashboard Overview
