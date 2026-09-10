@@ -1,5 +1,7 @@
 # Market Mechanics Workspace
 
+[Open interactive example / Abrir exemplo interativo](https://galafis.github.io/trading-dashboard/)
+
 ### Painel de Dinâmica de Mercado
 
 [![Validation](https://github.com/galafis/trading-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/galafis/trading-dashboard/actions/workflows/ci.yml)
