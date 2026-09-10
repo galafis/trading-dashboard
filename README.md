@@ -1,434 +1,109 @@
-# 📊 Trading Dashboard
+# Market Mechanics Workspace
 
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![License-MIT](https://img.shields.io/badge/License--MIT-yellow?style=for-the-badge)
+### Painel de Dinâmica de Mercado
 
+[![Validation](https://github.com/galafis/trading-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/galafis/trading-dashboard/actions/workflows/ci.yml)
+[English](#english) · [Português](#portugues) · [Examples / Exemplos](tests/indicators.test.js) · [Validation / Validação](docs/VALIDATION.md)
 
-[English](#english) | [Português](#português)
+**Financial visualization / Visualização financeira** · Working prototype / Protótipo funcional · Gabriel Demetrios Lafis
 
----
+<a id="english"></a>
 
 ## English
 
-### 🎯 Overview
+A bilingual React workspace for examining reproducible synthetic prices, technical indicators and paper portfolio operations.
 
-**Trading Dashboard** is a professional, real-time trading dashboard built with React and modern web technologies. Features beautiful charts, portfolio tracking, market analytics, and a responsive design optimized for traders and financial professionals.
+### What works
 
-Perfect for quantitative traders, portfolio managers, and anyone who needs a clean, fast, and intuitive interface for monitoring financial markets.
+- Seeded OHLCV examples feed a responsive chart, SMA, RSI, MACD and VWAP indicators.
+- Paper buys and sells validate quantities, cash and holdings and immediately refresh portfolio summaries.
+- The separate order-rule module supports limit, stop and persistent stop-limit triggers with regression tests.
 
-### 📸 Screenshot
+### Reproducible walkthrough
 
-![Trading Dashboard](docs/screenshot.png)
+Requirements: Node.js 24+ and pnpm 11 / Node.js 24+ e pnpm 11.
 
-A modern, dark-themed dashboard with real-time candlestick charts, portfolio tracking, and market statistics.
+Run from the repository root. The validation environment installs the components exercised by the tests and documented example; optional integrations may need their separate dependencies.
 
-### ✨ Key Features
-
-#### 📈 Real-Time Data
-- **Live Price Updates**: Simulated WebSocket-like price updates
-- **Interactive Charts**: Area charts, bar charts, and line charts
-- **Portfolio Tracking**: Real-time P&L calculation
-- **Market Statistics**: 24h change, volume, and more
-
-#### 🎨 Modern UI/UX
-- **Responsive Design**: Works on desktop, tablet, and mobile
-- **Dark Theme**: Easy on the eyes for long trading sessions
-- **Smooth Animations**: Framer Motion for fluid transitions
-- **Professional Layout**: Clean and intuitive interface
-
-#### 📊 Charts & Visualization
-- **Price Charts**: Area charts with gradient fills
-- **Volume Charts**: Bar charts for volume analysis
-- **Recharts Library**: Professional charting library
-- **Customizable**: Easy to add new chart types
-
-#### 💼 Portfolio Management
-- **Position Tracking**: Monitor all your positions
-- **P&L Calculation**: Real-time profit and loss
-- **Performance Metrics**: Individual and total returns
-- **Symbol Overview**: Quick glance at all holdings
-
-### 🚀 Quick Start
-
-#### Installation
-
-```bash
-# Clone repository
-git clone https://github.com/galafis/trading-dashboard.git
-cd trading-dashboard
-
-# Install dependencies
-pnpm install
-# or
-npm install
+```sh
+pnpm install --frozen-lockfile
+pnpm test
+pnpm build
 ```
 
-#### Development
+**Input contract / Contrato de entrada:** Synthetic OHLCV candles / candles OHLCV fictícios; seed / semente `42`; default end / término padrão `2026-01-01T00:00:00Z`.
 
-```bash
-# Start development server
-pnpm run dev
-# or
-npm run dev
+**Expected behavior / Comportamento esperado:** Tests verify hand-calculated Wilder RSI values, zero-valued MACD signals, reproducible candles and cash conservation on a round-trip paper trade. / Testes verificam RSI de Wilder calculado manualmente, sinais MACD iguais a zero, candles reproduzíveis e conservação de saldo em compra e venda simuladas.
 
-# Open browser at http://localhost:5173
-```
-
-#### Build for Production
-
-```bash
-# Build optimized bundle
-pnpm run build
-# or
-npm run build
-
-# Preview production build
-pnpm run preview
-# or
-npm run preview
-```
-
-### 📁 Project Structure
-
-```
-trading-dashboard/
-├── src/
-│   ├── components/
-│   │   └── ui/          # Reusable UI components
-│   ├── assets/          # Static assets
-│   ├── App.jsx          # Main application component
-│   ├── App.css          # Application styles
-│   ├── main.jsx         # Entry point
-│   └── index.css        # Global styles
-├── public/              # Public assets
-├── index.html           # HTML template
-├── package.json         # Dependencies
-├── vite.config.js       # Vite configuration
-└── tailwind.config.js   # Tailwind configuration
-```
-
-### 🎨 Tech Stack
-
-- **React 19**: Latest React with hooks
-- **Vite 6**: Lightning-fast build tool
-- **Tailwind CSS 4**: Utility-first CSS framework
-- **Recharts 2**: Composable charting library
-- **Lucide React**: Beautiful icon library
-- **Framer Motion**: Animation library
-- **shadcn/ui**: High-quality UI components
-
-### 🗂️ Arquitetura de Componentes
+### Architecture / Arquitetura
 
 ```mermaid
-flowchart TD
-    A([Market Data API\nWebSocket · REST · Simulado]) --> B[Estado Global da Aplicação\nReact Hooks · useEffect · useState]
-    B --> C{Componentes React}
-    C --> D[Price Ticker\nAtualizações em Tempo Real]
-    C --> E[Charts & Visualizações\nRecharts · Area · Bar · Line]
-    C --> F[Portfolio Table\nPosições · P&L · Retornos]
-    C --> G[Statistics Cards\nVariação 24h · Volume · Métricas]
-    D --> H[Atualizações em Tempo Real\nFramer Motion · Animações Fluidas]
-    E --> H
-    F --> H
-    G --> H
-    H --> I([Interface do Trader\nDark Theme · Responsivo · Tailwind CSS])
+flowchart LR
+    A["Seeded synthetic candles / Candles fictícios com semente"]
+    B["Tested indicators / Indicadores testados"]
+    C["React chart and paper orders / Gráfico React e ordens simuladas"]
+    D["Portfolio and transaction view / Carteira e transações"]
+    A --> B --> C --> D
 ```
 
-### 📊 Features Showcase
+The main path can be followed in [src/services/technicalIndicators.js](src/services/technicalIndicators.js). Examples call the actual implementation and include assertions; they are not pseudocode.
 
-#### Dashboard Overview
-- Real-time price ticker
-- 24-hour statistics cards
-- Portfolio summary with total value
-- P&L percentage indicator
+### Scope and assumptions
 
-#### Interactive Charts
-- **Price Chart**: Area chart with gradient
-- **Volume Chart**: Bar chart for trading volume
-- Responsive and interactive tooltips
-- Customizable time ranges
+All prices are synthetic; ticker names are illustrative. No brokerage, live quote feed or investment performance is represented. UI fills are immediate with no fees or slippage. The order-rule module is tested separately and is not a full exchange or portfolio settlement engine. Floating-point arithmetic is suitable for visualization, not custody accounting.
 
-#### Portfolio Table
-- Symbol, shares, and prices
-- Average price vs current price
-- Individual P&L per position
-- Color-coded gains/losses
-- Sortable columns
+### Changes verified in this review
 
-### 🔧 Customization
+Restored the missing React application; corrected Wilder smoothing and zero MACD signals; prevented invalid trades, refreshed summaries after fills and latched stop-limit triggers.
 
-#### Adding New Symbols
-
-```jsx
-const mockPortfolio = [
-  { 
-    symbol: 'AAPL', 
-    shares: 100, 
-    avgPrice: 150.00, 
-    currentPrice: 155.50, 
-    change: 3.67 
-  },
-  // Add more symbols...
-]
-```
-
-#### Changing Theme Colors
-
-Edit `tailwind.config.js`:
-
-```js
-theme: {
-  extend: {
-    colors: {
-      primary: '#3b82f6',
-      secondary: '#8b5cf6',
-      // Add custom colors...
-    }
-  }
-}
-```
-
-#### Adding New Charts
-
-```jsx
-import { LineChart, Line } from 'recharts'
-
-<ResponsiveContainer width="100%" height={300}>
-  <LineChart data={data}>
-    <Line type="monotone" dataKey="value" stroke="#3b82f6" />
-  </LineChart>
-</ResponsiveContainer>
-```
-
-### 🌐 WebSocket Integration
-
-To connect to real market data:
-
-```jsx
-useEffect(() => {
-  const ws = new WebSocket('wss://your-api.com/stream')
-  
-  ws.onmessage = (event) => {
-    const data = JSON.parse(event.data)
-    setCurrentPrice(data.price)
-  }
-  
-  return () => ws.close()
-}, [])
-```
-
-### 📈 Performance
-
-- **Initial Load**: < 1s
-- **Chart Rendering**: < 100ms
-- **Bundle Size**: ~200KB (gzipped)
-- **Lighthouse Score**: 95+
-
-### 🚀 Deployment
-
-#### Vercel
-
-```bash
-pnpm run build
-vercel --prod
-```
-
-#### Netlify
-
-```bash
-pnpm run build
-netlify deploy --prod --dir=dist
-```
-
-#### GitHub Pages
-
-```bash
-pnpm run build
-# Deploy dist/ folder to gh-pages branch
-```
-
-### 🎯 Use Cases
-
-- **Day Trading**: Monitor positions and market data
-- **Portfolio Management**: Track investments and returns
-- **Market Analysis**: Visualize price and volume trends
-- **Financial Education**: Learn about trading interfaces
-- **Prototype Development**: Base for custom trading apps
-
-### 🔒 Best Practices
-
-- **State Management**: React hooks for local state
-- **Performance**: Memoization and lazy loading
-- **Accessibility**: ARIA labels and keyboard navigation
-- **Responsive**: Mobile-first design approach
-- **Code Quality**: ESLint and consistent formatting
-
-### 📚 Documentation
-
-Full component documentation:
-
-```bash
-# Generate docs
-pnpm run docs
-```
-
-### 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### 👤 Author
-
-**Gabriel Demetrios Lafis**
-
----
+<a id="portugues"></a>
 
 ## Português
 
-### 🎯 Visão Geral
+Painel React bilíngue para examinar preços fictícios reproduzíveis, indicadores técnicos e operações de carteira simulada.
 
-**Trading Dashboard** é um dashboard de trading profissional e em tempo real construído com React e tecnologias web modernas. Apresenta gráficos bonitos, rastreamento de portfólio, análise de mercado e um design responsivo otimizado para traders e profissionais financeiros.
+### Funcionalidades disponíveis
 
-Perfeito para traders quantitativos, gestores de portfólio e qualquer pessoa que precise de uma interface limpa, rápida e intuitiva para monitorar mercados financeiros.
+- Exemplos OHLCV com semente alimentam gráfico responsivo e indicadores SMA, RSI, MACD e VWAP.
+- Compras e vendas simuladas validam quantidades, saldo e posições e atualizam os resumos imediatamente.
+- O módulo separado de regras de ordens suporta limites, stops e gatilhos persistentes de stop-limit com testes.
 
-### ✨ Funcionalidades Principais
+### Execução reproduzível
 
-#### 📈 Dados em Tempo Real
-- **Atualizações de Preço ao Vivo**: Atualizações simuladas tipo WebSocket
-- **Gráficos Interativos**: Gráficos de área, barras e linhas
-- **Rastreamento de Portfólio**: Cálculo de P&L em tempo real
-- **Estatísticas de Mercado**: Variação 24h, volume e mais
+Use os comandos da seção acima a partir da raiz do repositório. Requisitos: Node.js 24+ and pnpm 11 / Node.js 24+ e pnpm 11. O ambiente de validação instala os componentes exercitados pelos testes e pelo exemplo documentado; integrações opcionais podem exigir dependências próprias.
 
-#### 🎨 UI/UX Moderna
-- **Design Responsivo**: Funciona em desktop, tablet e mobile
-- **Tema Escuro**: Confortável para longas sessões de trading
-- **Animações Suaves**: Framer Motion para transições fluidas
-- **Layout Profissional**: Interface limpa e intuitiva
+O fluxo principal está em [src/services/technicalIndicators.js](src/services/technicalIndicators.js). Os exemplos usam a implementação real e verificam resultados com asserções; não são pseudocódigo. O diagrama apresenta os mesmos passos nos dois idiomas.
 
-### 🚀 Início Rápido
+### Escopo e premissas
 
-#### Instalação
+Todos os preços são fictícios; nomes de ativos são ilustrativos. Não há corretora, cotações ao vivo ou desempenho de investimento representado. A interface executa imediatamente, sem taxas ou deslizamento. O módulo de regras é testado separadamente e não representa uma bolsa nem motor completo de liquidação. Ponto flutuante serve à visualização, não à contabilidade de custódia.
 
-```bash
-# Clonar repositório
-git clone https://github.com/galafis/trading-dashboard.git
-cd trading-dashboard
+### Melhorias verificadas nesta revisão
 
-# Instalar dependências
-pnpm install
-# ou
-npm install
+Restaurada aplicação React ausente; corrigidos suavização de Wilder e sinais MACD zero; bloqueadas operações inválidas, atualizados resumos após execução e persistidos gatilhos stop-limit.
+
+### Run the application / Executar a aplicação
+
+```sh
+pnpm dev --host 127.0.0.1
 ```
 
-#### Desenvolvimento
+## Repository guide / Guia do repositório
 
-```bash
-# Iniciar servidor de desenvolvimento
-pnpm run dev
-# ou
-npm run dev
+| Location / Local                                                      | Purpose / Finalidade                                                   |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [Implementation / Implementação](src/services/technicalIndicators.js) | Main domain behavior / Comportamento principal do domínio              |
+| [Example / Exemplo](tests/indicators.test.js)                         | Executable scenario / Cenário executável                               |
+| [Tests / Testes](tests/)                                              | Normal behavior and failure cases / Fluxos válidos e casos de falha    |
+| [Validation notes / Notas de validação](docs/VALIDATION.md)           | Corrections, evidence and boundaries / Correções, evidências e limites |
+| [Workflow / Automação](.github/workflows/ci.yml)                      | Automated checks / Verificações automatizadas                          |
 
-# Abrir navegador em http://localhost:5173
-```
+## Development / Desenvolvimento
 
-#### Build para Produção
+EN: When changing behavior, update the contract, the worked example and a regression test together. Keep synthetic fixtures separate from real data. A passing test suite demonstrates the listed software behaviors; it does not certify a deployment or domain outcome.
 
-```bash
-# Build otimizado
-pnpm run build
-# ou
-npm run build
+PT: Ao alterar comportamento, atualize em conjunto o contrato, o exemplo e um teste de regressão. Separe amostras fictícias de dados reais. Testes aprovados demonstram os comportamentos de software listados; não certificam implantação nem resultado no domínio.
 
-# Preview do build de produção
-pnpm run preview
-# ou
-npm run preview
-```
+Author / Autor: [Gabriel Demetrios Lafis](https://github.com/galafis) · [Institutional contact / Contato institucional](mailto:gabrieldemetrioslafis@usp.br)
 
-### 🎨 Stack Tecnológico
-
-- **React 19**: Última versão do React com hooks
-- **Vite 6**: Ferramenta de build ultra-rápida
-- **Tailwind CSS 4**: Framework CSS utility-first
-- **Recharts 2**: Biblioteca de gráficos composável
-- **Lucide React**: Biblioteca de ícones bonita
-- **Framer Motion**: Biblioteca de animação
-- **shadcn/ui**: Componentes UI de alta qualidade
-
-### 📊 Showcase de Funcionalidades
-
-#### Visão Geral do Dashboard
-- Ticker de preço em tempo real
-- Cards de estatísticas 24 horas
-- Resumo de portfólio com valor total
-- Indicador de percentual de P&L
-
-#### Gráficos Interativos
-- **Gráfico de Preço**: Gráfico de área com gradiente
-- **Gráfico de Volume**: Gráfico de barras para volume de negociação
-- Tooltips responsivos e interativos
-- Intervalos de tempo customizáveis
-
-#### Tabela de Portfólio
-- Símbolo, ações e preços
-- Preço médio vs preço atual
-- P&L individual por posição
-- Ganhos/perdas com código de cores
-- Colunas ordenáveis
-
-### 🌐 Integração WebSocket
-
-Para conectar a dados de mercado reais:
-
-```jsx
-useEffect(() => {
-  const ws = new WebSocket('wss://sua-api.com/stream')
-  
-  ws.onmessage = (event) => {
-    const data = JSON.parse(event.data)
-    setCurrentPrice(data.price)
-  }
-  
-  return () => ws.close()
-}, [])
-```
-
-### 📈 Performance
-
-- **Carregamento Inicial**: < 1s
-- **Renderização de Gráficos**: < 100ms
-- **Tamanho do Bundle**: ~200KB (gzipped)
-- **Score Lighthouse**: 95+
-
-### 🎯 Casos de Uso
-
-- **Day Trading**: Monitorar posições e dados de mercado
-- **Gestão de Portfólio**: Rastrear investimentos e retornos
-- **Análise de Mercado**: Visualizar tendências de preço e volume
-- **Educação Financeira**: Aprender sobre interfaces de trading
-- **Desenvolvimento de Protótipos**: Base para apps de trading customizados
-
-### 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para submeter um Pull Request.
-
-### 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-### 👤 Autor
-
-**Gabriel Demetrios Lafis**
-
----
-
-**⭐ Se este projeto foi útil para você, considere dar uma estrela no GitHub!**
+License / Licença: [repository license](LICENSE).
